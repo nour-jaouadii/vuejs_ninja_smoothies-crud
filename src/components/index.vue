@@ -29,14 +29,20 @@ export default {
 
        methods: {
          deleteSmoothie(id) {
+            // delete doc from firestore 
+            db.collection('smoothies').doc(id).delete()
+            .then(() => {  // call back function   
+                 this.smoothies = this.smoothies.filter(smoothie => {
+                  return smoothie.id != id ;// return true
+                }) 
+            }) 
 
            // filter cycles through in array allows us to filter out certain items 
-           // and return true or false if( filter return false) the item remove from the array
-           //  if( filter return true) the item stay in the array
-           this.smoothies = this.smoothies.filter(smoothie => {
-             return smoothie.id != id ;// return true
-
-           }) 
+           // and return true or false : if( filter return false) the item remove from the array
+           //  else( filter return true) the item stay in the array           
+          //  this.smoothies = this.smoothies.filter(smoothie => {
+          //    return smoothie.id != id ;// return true
+          //  }) 
             
          }
        },

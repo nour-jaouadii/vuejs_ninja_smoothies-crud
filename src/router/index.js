@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import index from "@/components/index.vue";
-
+import AddSmoothie from "@/components/AddSmoothie"       
 Vue.use(VueRouter);
 
 const routes = [
@@ -9,6 +9,11 @@ const routes = [
     path: "/",
     name: "index",
     component: index
+  },
+  {
+    path: "/add-smoothie",
+    name: "AddSmoothie",
+    component: AddSmoothie
   },
   
   
