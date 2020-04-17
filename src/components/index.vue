@@ -17,23 +17,12 @@
 </template>
 
 <script>
+import db from '@/firebase/init'
 export default {
   name: "Index",
   data() {
        return{
-         smoothies:[
-
-           { 
-             title: 'Ninja Brew', slug: 'ninja-Brew',
-             ingredients: ['bananas', 'coffe', 'milk'],
-             id:'1'
-           },
-           { title: 'Morning Mood', slug: 'morning-mood',
-             ingredients: ['mango', 'lime', 'juice'],
-             id:'2'
-           }
-
-         ]
+         smoothies:[]
        }
      
      },
@@ -50,6 +39,21 @@ export default {
            }) 
             
          }
+       },
+       created(){
+         // fetch data from the firestore
+         // get return promise : promise returned when something take a little bit of time
+         db.collection('smoothies').get()
+         .then(snapshot =>{
+           //snapshot = view of  smoothies's collection
+            snapshot.forEach(doc =>{
+              //console.log(doc.data( ),doc.id )
+              let smoothie = doc.data() // grabbing the data object from the document
+              smoothie.id = doc.id  
+              this.smoothies.push(smoothie) // push item into arraygit add
+
+           })
+         })
        }
 };
 </script>
