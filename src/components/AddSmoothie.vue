@@ -80,7 +80,7 @@ export default {
         },
 
         deleting(ing){
-             
+            
              this.ingredients =  this.ingredients.filter(ingredient =>{
                  
                   return ingredient != ing

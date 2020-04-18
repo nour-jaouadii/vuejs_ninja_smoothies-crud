@@ -1,8 +1,30 @@
   <template>
 
-      <div v-if="smoothie" class="edit-smoothie" container>
-          <h2>Edit   {{ smoothie.title }} smoothie </h2>
-      </div>
+   <div v-if="smoothie" class="edit-smoothie container" >
+      <h2>Edit   {{ smoothie.title }} smoothie </h2>
+        <form @submit.prevent="EditSmoothie" >
+          <div class="field title" >
+              <label for="title">Smoothie Title:</label>
+              <input type="text" name="title" v-model="smoothie.title">
+          </div>
+            <div v-for="(ing,index) in   smoothie.ingredients" :key="index" class="field">
+                <label for="igredient">ingredient:</label>
+                <input type="text" name="ingredient" v-model=" smoothie.ingredients[index]">
+                <i class="material-icons delete" @click="deleting(ing)">delete</i>
+            </div>
+           <div class="field add-ingredient" >
+              <label for="ingredient" >Add an  ingredient:</label>
+              <input type="text" name="ingredient" @keydown.tab.prevent='addIng' v-model="another" > 
+              <!--  adding .prevent  because the default behavior of the tab go  to next field
+                 (el cursor tbadel) -->
+          </div>
+
+           <div class="field center-align" >
+               <p v-if ="feedback" class="red-text">{{ feedback}} </p>
+             <button class="btn pink">Update Smoothie</button>
+          </div>
+      </form>
+    </div>
   </template>
   
   <script>
@@ -14,10 +36,39 @@
       name:'EditSmoothie',
       data(){
           return{
-              smoothie:null
+              smoothie:null,
+              another: null,
+              feedback:null
           
           }
       },
+      
+     methods : {
+          EditSmoothie(){
+            console.log(this.smoothie.title, this.smoothie.ingredients)
+          },//end edit
+        
+          addIng(){
+            if(this.another){  // this.another = true c.a.d not null
+                this.smoothie.ingredients.push(this.another) 
+                this.another = null
+                this.feedback = null
+            } else {
+                this.feedback ='you must entera value to add an ingredient'
+            }    
+        }, // end add
+
+           deleting(ing) {
+              this.smoothie.ingredients = this.smoothie.ingredients.filter(
+                (ingredient) => {
+              return ingredient != ing;
+              //if( filter return false) the item remove from the array
+            });
+        } // end deleting
+        
+      }, // end methods
+
+
       created(){ //component created but not rendered to the dom  
       let ref=  db.collection('smoothies').where('slug','==',this.$route.params.smoothie_slug)
          ref.get().then(snapshot =>{
@@ -30,6 +81,35 @@
            })
          })
        }
+       
   }
   </script>
+
+  
+<style>
+.edit-smoothie{
+     margin-top: 60px;
+     padding: 20px;
+     max-width: 500px ;
+}
+
+.edit-smoothie h2{
+    font-size : 2em;
+    margin: 20 px auto;
+} 
+.edit-smoothie .field{
+    
+    margin: 20px auto;
+    position: relative;
+}
+.edit-smoothie .delete{
+    position:absolute;
+    right:0;
+    bottom: 16px;
+    color: #aaa;
+    font-size:1.4em;
+    cursor: pointer;
+}
+</style>
+
   
