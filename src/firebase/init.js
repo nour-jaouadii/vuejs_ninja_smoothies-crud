@@ -1,5 +1,5 @@
-import firebase from 'firebase'
-import 'firebase/firestore' 
+import firebase from "firebase";
+import "firebase/firestore";
 
 var firebaseConfig = {
   apiKey: "AIzaSyBljVU0vAdR_fgiQRSDUmwSOZa7yHAC3cg",
@@ -9,13 +9,12 @@ var firebaseConfig = {
   storageBucket: "ninja-smoothies-67ec1.appspot.com",
   messagingSenderId: "408619891736",
   appId: "1:408619891736:web:e3795501dcc1ec06d6d76d",
-  measurementId: "G-PFHN7L9HPL"
+  measurementId: "G-PFHN7L9HPL",
 };
 // Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+// firebase.analytics();
 
-   
 firebaseApp.firestore().settings({ timestampsInSnapshots: true });
 
 // export firestore database
