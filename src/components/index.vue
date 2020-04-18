@@ -56,7 +56,7 @@ export default {
               //console.log(doc.data( ),doc.id )
               let smoothie = doc.data() // grabbing the data object from the document
               smoothie.id = doc.id  
-              this.smoothies.push(smoothie) // push item into arraygit add
+              this.smoothies.push(smoothie) // push item into array
 
            })
          })
