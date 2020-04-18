@@ -7,9 +7,12 @@
               <label for="title">Smoothie Title:</label>
               <input type="text" name="title" v-model="title">
           </div>
-
+            <div v-for="(ing,index) in   ingredients" :key="index">
+                <label for="igredient">ingredient:</label>
+                <input type="text" name="ingredient" v-model="ingredients[index]">
+            </div>
            <div class="field add-ingredient" >
-              <label for="ingredient">Add an  ingredient:</label>
+              <label for="ingredient" >Add an  ingredient:</label>
               <input type="text" name="ingredient" @keydown.tab.prevent='addIng' v-model="another" > 
               <!--  adding .prevent  because the default behavior of the tab go  to next field
                  (el cursor tbadel) -->
